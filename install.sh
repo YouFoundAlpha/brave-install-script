@@ -75,7 +75,12 @@ main() {
                 error "Could not find an AUR helper. Please install paru/pikaur/yay to proceed." "" \
                       "You can find more information about AUR helpers at https://wiki.archlinux.org/title/AUR_helpers"
             show "$aur_helper" -Sy --needed --noconfirm brave-bin
-        fi
+        else
+            aur_helper="$(first_of rua)" ||
+                error "Could not find an AUR helper. Please install paru/pikaur/yay to proceed." "" \
+                      "You can find more information about AUR helpers at https://wiki.archlinux.org/title/AUR_helpers"
+            show "$aur_helper" --noconfirm install brave-bin
+        
 
     elif available zypper; then
         show $sudo zypper --non-interactive addrepo --gpgcheck --repo https://brave-browser-rpm-release.s3.brave.com/brave-browser.repo
